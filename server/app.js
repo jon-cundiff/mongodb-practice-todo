@@ -11,6 +11,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/", async (req, res) => {
+    res.json({ todos: [] });
+});
+
 mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("Connected to DB.");
     app.listen(PORT, () => console.log(`Running on port ${PORT}`));
