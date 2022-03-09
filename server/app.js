@@ -36,6 +36,18 @@ app.post("/new-task", async (req, res) => {
     }
 });
 
+app.delete("/delete-task", async (req, res) => {
+    const { id } = req.body;
+    try {
+        await Task.findByIdAndDelete(id);
+        res.json({ success: true, message: "Task successfully deleted" });
+    } catch {
+        res.status(400).json({
+            success: false,
+            message: "Unable to delete task",
+        });
+    }
+});
 mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("Connected to DB.");
     app.listen(PORT, () => console.log(`Running on port ${PORT}`));
