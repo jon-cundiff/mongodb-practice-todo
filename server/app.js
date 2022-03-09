@@ -36,6 +36,27 @@ app.post("/new-task", async (req, res) => {
     }
 });
 
+app.put("/update-task", async (req, res) => {
+    const { id, title, priority, completedDate } = req.body;
+    try {
+        const task = await Task.findByIdAndUpdate(id, {
+            title,
+            priority,
+            completedDate: new Date(completedDate) || null,
+        });
+        res.json({
+            success: true,
+            message: "Task successfully updated",
+            data: task,
+        });
+    } catch {
+        res.status(400).json({
+            success: false,
+            message: "Unable to update task",
+        });
+    }
+});
+
 app.delete("/delete-task", async (req, res) => {
     const { id } = req.body;
     try {
