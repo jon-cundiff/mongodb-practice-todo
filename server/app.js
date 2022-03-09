@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const Task = require("./models/Task");
 
 const PORT = process.env.PORT || 5500;
 
@@ -12,7 +13,12 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {
-    res.json({ todos: [] });
+    try {
+        const tasks = await Task.find({});
+        res.json({ todos: tasks });
+    } catch {
+        res.status(400).json({ error: "Error loading tasks" });
+    }
 });
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
