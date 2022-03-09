@@ -21,6 +21,21 @@ app.get("/", async (req, res) => {
     }
 });
 
+app.post("/new-task", async (req, res) => {
+    const { title, priority, completedDate } = req.body;
+    try {
+        const newTask = new Task({ title, priority, completedDate });
+        const task = await newTask.save();
+        res.json({
+            success: true,
+            message: "Task saved successfully",
+            data: task,
+        });
+    } catch {
+        res.status(400).json({ success: false, message: "Error saving task." });
+    }
+});
+
 mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("Connected to DB.");
     app.listen(PORT, () => console.log(`Running on port ${PORT}`));
