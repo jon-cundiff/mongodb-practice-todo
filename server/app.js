@@ -42,7 +42,7 @@ app.put("/update-task", async (req, res) => {
         const task = await Task.findByIdAndUpdate(id, {
             title,
             priority,
-            completedDate: new Date(completedDate) || null,
+            completedDate: completedDate ? new Date(completedDate) : null,
         });
         res.json({
             success: true,
