@@ -26,15 +26,18 @@ function App() {
     };
 
     const handleSubmit = async (taskData) => {
+        console.log(taskData);
         try {
             if (task) {
-                console.log("update");
+                await axios.put(`${baseURL}/update-task`, taskData);
             } else {
-                console.log("add");
+                await axios.post(`${baseURL}/new-task`, taskData);
             }
             toggleForm();
+            setTask(null);
+            getTasks();
         } catch {
-            console.log("erro)");
+            console.log("error");
         }
     };
 
