@@ -1,0 +1,39 @@
+.backdrop {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.task-box {
+    background-color: white;
+    border-radius: 20px;
+    min-width: 15rem;
+    border: 1px solid black;
+    box-shadow: 4px 4px 4px #222;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+}
+
+.task-box section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.task-box h3 {
+    margin: 0.4rem 0;
+}
+
+.task-box button {
+    width: 100%;
+    padding: 1rem;
+}
