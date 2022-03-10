@@ -26,7 +26,6 @@ function App() {
     };
 
     const handleSubmit = async (taskData) => {
-        console.log(taskData);
         try {
             if (task) {
                 await axios.put(`${baseURL}/update-task`, taskData);
@@ -35,6 +34,18 @@ function App() {
             }
             toggleForm();
             setTask(null);
+            getTasks();
+        } catch {
+            console.log("error");
+        }
+    };
+
+    const handleDelete = async (index) => {
+        try {
+            const taskId = tasks[index]._id;
+            await axios.delete(`${baseURL}/delete-task`, {
+                data: { id: taskId },
+            });
             getTasks();
         } catch {
             console.log("error");
@@ -51,7 +62,13 @@ function App() {
         <div className="App">
             <h1>Task List</h1>
             <button onClick={toggleForm}>New Task</button>
-            {tasks && <TaskList tasks={tasks} toggleUpdate={toggleUpdate} />}
+            {tasks && (
+                <TaskList
+                    tasks={tasks}
+                    toggleUpdate={toggleUpdate}
+                    handleDelete={handleDelete}
+                />
+            )}
             {isFormVisible && (
                 <TaskForm
                     task={task}
