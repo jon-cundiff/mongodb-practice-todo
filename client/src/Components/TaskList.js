@@ -1,6 +1,6 @@
 import React from "react";
 
-const TaskList = ({ tasks, toggleUpdate }) => {
+const TaskList = ({ tasks, toggleUpdate, handleDelete }) => {
     const taskItems = tasks.map((task, index) => {
         return (
             <li key={task._id}>
@@ -12,6 +12,7 @@ const TaskList = ({ tasks, toggleUpdate }) => {
                     </p>
                 )}
                 <button onClick={() => toggleUpdate(index)}>Update</button>
+                <button onClick={() => handleDelete(index)}>Delete</button>
             </li>
         );
     });
